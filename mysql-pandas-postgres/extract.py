@@ -1,19 +1,13 @@
 """
 EXTRACT
-Забираем данные из БД (в этом игрушечном примере - с удаленной MySQL)
+В этом игрушечном примере создаем "куб" для сумм продаж
 """
 
-def extract():
-    sql_query = '''
-        SELECT
-            *
-        FROM
-            sales 
-            INNER JOIN companies USING(Артель)
-            INNER JOIN chaebols USING(Артель)
-            INNER JOIN industries USING(Товар) 
-            INNER JOIN regions USING(Град)
-    '''
+import pandas as pd
+
+def extract_from_mysql(sql_extract_query: str):
+    import mysql.connector
+    from Users.Боря.AnacondaProjects.etl_experiments.config import mysql_qm
     
     with mysql.connector.connect(
                 host=mysql_qm['host'],
@@ -21,11 +15,4 @@ def extract():
                 password=mysql_qm['password'],
                 database=mysql_qm['database']
                 ) as connection:
-        df = pd.read_sql(sql_query, connection)
-    
-    df = df[['Дата', 'Плата', 'Артель', 'Чеболь', 'Товар', 'Промысел', 'Град', 'Царство', ]]
-    
-    df.Дата = pd.to_datetime(df.Дата)
-
-if __name__ == '__main__':
-    extract()
+        return pd.read_sql(sql_extract_query, connection)
