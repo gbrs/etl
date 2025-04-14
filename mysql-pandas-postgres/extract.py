@@ -1,13 +1,13 @@
 """
 EXTRACT
-В этом игрушечном примере создаем "куб" для сумм продаж
+В этом игрушечном примере из удаленной MySQL БД
 """
 
 import pandas as pd
 
 def extract_from_mysql(sql_extract_query: str):
     import mysql.connector
-    from Users.Боря.AnacondaProjects.etl_experiments.config import mysql_qm
+    from config import mysql_qm
     
     with mysql.connector.connect(
                 host=mysql_qm['host'],

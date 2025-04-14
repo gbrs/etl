@@ -19,11 +19,12 @@ def run_etl_pipeline():
             INNER JOIN industries USING(Товар) 
             INNER JOIN regions USING(Град)
     '''
-    
     df = extract_from_mysql(sql_extract_query)
+    print("Extracted!")
     
     # Transform
     cube = create_cube(df)
+    print("Transformed!")
     
     # Load
     sql_create_query = '''
@@ -34,7 +35,8 @@ def run_etl_pipeline():
             Сумма_продаж DECIMAL(10, 2)
         )
     '''
-    load_to_postgres(sql_extract_query, cube)
+    load_to_postgres(sql_create_query, cube)
+    print("Loaded!")
     
     print("ETL process completed!")
 

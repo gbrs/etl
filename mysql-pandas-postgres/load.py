@@ -5,11 +5,12 @@ LOAD
 
 import pandas as pd
 
-def load_to_postgres(sql_extract_query: str, cube: pd.DataFrame):
+
+def load_to_postgres(sql_create_query: str, cube: pd.DataFrame):
     import psycopg2
     from sqlalchemy import create_engine
     from sqlalchemy import URL
-    from Users.Боря.AnacondaProjects.etl_experiments.config import postgresql_home
+    from config import postgresql_home
 
     with psycopg2.connect(
             host=postgresql_home['host'],
