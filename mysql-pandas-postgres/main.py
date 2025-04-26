@@ -1,5 +1,8 @@
 """
 главный файл ETL процесса
+E - забираем данные из MySQL
+T - создаем "кубы" в pandas
+L - занружаем в PostgreSQL
 """
 
 from extract import extract_from_mysql
